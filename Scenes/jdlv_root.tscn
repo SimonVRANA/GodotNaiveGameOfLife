@@ -1,0 +1,168 @@
+[gd_scene load_steps=18 format=3 uid="uid://bsn7gyhqjfoc8"]
+
+[ext_resource type="Script" path="res://Scripts/QuitApp.cs" id="1_oymld"]
+[ext_resource type="Shader" path="res://Shaders/SolidColor.gdshader" id="1_vyxp1"]
+[ext_resource type="Texture2D" uid="uid://c5sscyjjfurjq" path="res://Images/OnePxWhite.png" id="2_wvdgl"]
+[ext_resource type="Script" path="res://Scripts/SelectNumberOfColumns.cs" id="4_hgufr"]
+[ext_resource type="Texture2D" uid="uid://bx4cooxx5aekb" path="res://Images/Button/ButtonNormal.png" id="4_yc5a8"]
+[ext_resource type="Texture2D" uid="uid://jhphjm1dqjb5" path="res://Images/Button/ButtonPressed.png" id="5_su5s3"]
+[ext_resource type="Texture2D" uid="uid://bewixoa7oqd33" path="res://Images/Button/ButtonHover.png" id="6_hbvcu"]
+[ext_resource type="Script" path="res://Scripts/CellsController.cs" id="7_h4q0n"]
+[ext_resource type="PackedScene" uid="uid://cym8utpygytgu" path="res://Templates/cell.tscn" id="8_jimlo"]
+[ext_resource type="Script" path="res://Scripts/RandomizeCells.cs" id="8_n36v0"]
+[ext_resource type="Script" path="res://Scripts/ClearButton.cs" id="9_yvuv1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1sqxj"]
+shader = ExtResource("1_vyxp1")
+shader_parameter/color = Color(0.270588, 0.270588, 0.270588, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5q561"]
+shader = ExtResource("1_vyxp1")
+shader_parameter/color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q4uvc"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_qsjxm"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_a4xp2"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_csnd8"]
+font_size = 24
+
+[node name="JDLV_Root" type="Node2D"]
+script = ExtResource("1_oymld")
+
+[node name="GameBackground" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1sqxj")
+position = Vector2(960, 540)
+scale = Vector2(1920, 1080)
+texture = ExtResource("2_wvdgl")
+
+[node name="Menu" type="Node2D" parent="GameBackground"]
+position = Vector2(0.000520885, -0.447222)
+scale = Vector2(1, 0.1)
+
+[node name="Background" type="Sprite2D" parent="GameBackground/Menu"]
+material = SubResource("ShaderMaterial_5q561")
+texture = ExtResource("2_wvdgl")
+
+[node name="Menu" type="CanvasLayer" parent="GameBackground/Menu/Background"]
+
+[node name="ColumsSpinBox" type="SpinBox" parent="GameBackground/Menu/Background/Menu" node_paths=PackedStringArray("cellsController")]
+offset_left = 196.0
+offset_top = 38.0
+offset_right = 279.063
+offset_bottom = 69.0
+min_value = 1.0
+max_value = 200.0
+value = 100.0
+script = ExtResource("4_hgufr")
+cellsController = NodePath("../../../../Cells")
+
+[node name="WidthLabel" type="Label" parent="GameBackground/Menu/Background/Menu/ColumsSpinBox"]
+layout_mode = 0
+offset_left = -119.0
+offset_top = -1.0
+offset_right = -4.0
+offset_bottom = 33.0
+text = "Columns: "
+label_settings = SubResource("LabelSettings_q4uvc")
+
+[node name="RandomButton" type="TextureButton" parent="GameBackground/Menu/Background/Menu" node_paths=PackedStringArray("cellsController")]
+offset_left = 355.0
+offset_top = 38.0
+offset_right = 479.08
+offset_bottom = 73.64
+texture_normal = ExtResource("4_yc5a8")
+texture_pressed = ExtResource("5_su5s3")
+texture_hover = ExtResource("6_hbvcu")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("8_n36v0")
+cellsController = NodePath("../../../../Cells")
+
+[node name="RandomLabel" type="Label" parent="GameBackground/Menu/Background/Menu/RandomButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_right = 111.0
+offset_bottom = 34.0
+text = "Random"
+label_settings = SubResource("LabelSettings_qsjxm")
+
+[node name="ClearButton" type="TextureButton" parent="GameBackground/Menu/Background/Menu" node_paths=PackedStringArray("cellsController")]
+offset_left = 507.0
+offset_top = 37.0
+offset_right = 631.08
+offset_bottom = 72.64
+texture_normal = ExtResource("4_yc5a8")
+texture_pressed = ExtResource("5_su5s3")
+texture_hover = ExtResource("6_hbvcu")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("9_yvuv1")
+cellsController = NodePath("../../../../Cells")
+
+[node name="ClearLabel" type="Label" parent="GameBackground/Menu/Background/Menu/ClearButton"]
+layout_mode = 0
+offset_left = 29.0
+offset_right = 96.0
+offset_bottom = 34.0
+text = "Clear"
+label_settings = SubResource("LabelSettings_qsjxm")
+
+[node name="PlayButton" type="CheckButton" parent="GameBackground/Menu/Background/Menu"]
+offset_left = 718.0
+offset_top = 43.0
+offset_right = 762.0
+offset_bottom = 67.0
+
+[node name="PlayLabel" type="Label" parent="GameBackground/Menu/Background/Menu/PlayButton"]
+layout_mode = 0
+offset_left = -59.0
+offset_top = -6.0
+offset_right = -10.0
+offset_bottom = 28.0
+text = "Play
+"
+label_settings = SubResource("LabelSettings_a4xp2")
+
+[node name="SpeedSpinBox" type="SpinBox" parent="GameBackground/Menu/Background/Menu"]
+offset_left = 1036.0
+offset_top = 41.0
+offset_right = 1119.06
+offset_bottom = 72.0
+min_value = 1.0
+max_value = 300.0
+value = 2.0
+
+[node name="SpeedLabel" type="Label" parent="GameBackground/Menu/Background/Menu/SpeedSpinBox"]
+layout_mode = 0
+offset_left = -222.0
+offset_top = -4.0
+offset_right = 242.0
+offset_bottom = 30.0
+text = "Speed: Once every                game tick"
+label_settings = SubResource("LabelSettings_csnd8")
+
+[node name="Cells" type="Node2D" parent="GameBackground" node_paths=PackedStringArray("cellsParentNode", "playButton", "speedSpinBox")]
+position = Vector2(0, 0.1)
+scale = Vector2(1, 0.9)
+script = ExtResource("7_h4q0n")
+cellsParentNode = NodePath("CanvasLayer/GridContainer")
+cellTemplate = ExtResource("8_jimlo")
+playButton = NodePath("../Menu/Background/Menu/PlayButton")
+speedSpinBox = NodePath("../Menu/Background/Menu/SpeedSpinBox")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="GameBackground/Cells"]
+
+[node name="GridContainer" type="GridContainer" parent="GameBackground/Cells/CanvasLayer"]
+offset_left = 10.0
+offset_top = 119.0
+offset_right = 1910.0
+offset_bottom = 1069.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 100

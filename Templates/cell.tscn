@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cym8utpygytgu"]
+
+[ext_resource type="Texture2D" uid="uid://cj0xkr85a38dh" path="res://Images/AliveCell.png" id="1_ve4q3"]
+[ext_resource type="Script" path="res://Scripts/Cell.cs" id="2_anpi0"]
+[ext_resource type="Texture2D" uid="uid://d0m21wr1seu7u" path="res://Images/DeadCell.png" id="3_20vj3"]
+
+[node name="Cell" type="TextureButton"]
+offset_right = 48.0
+offset_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("3_20vj3")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_anpi0")
+aliveTexture = ExtResource("1_ve4q3")
+deadTexture = ExtResource("3_20vj3")
